@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "Dictionary",
+  "description": "Get the definition and make your own unique dictionary.",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["script.js"]
+    }
+  ],
+  "browser_action": {
+    "default_title": "Dictionary",
+    "default_popup": "index.html"
+  }
+}
