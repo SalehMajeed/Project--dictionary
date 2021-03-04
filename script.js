@@ -13,6 +13,7 @@ async function selected_text(e) {
       const definition = result[0].meanings[0].definitions[0].definition;
       const example = result[0].meanings[0].definitions[0].example;
 
+      console.log(definition);
       create_form({ word, definition, example });
     }
   }
@@ -25,6 +26,13 @@ function create_form({ word, definition, example }) {
   const eg = document.createElement('p');
 
   box.id = 'container';
+
+  box.style.position = 'relative';
+  box.style.top = '0px';
+  box.style.width = '200px';
+  box.style.height = '200px';
+  box.style.backgroundColor = 'black';
+
   document.body.append(box);
 
   heading.innerText = word;
