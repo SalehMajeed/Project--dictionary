@@ -1,0 +1,8 @@
+#container {
+  position: absolute;
+  background-color: rgb(219, 253, 94);
+  transition: 0.3s;
+  width: 200px;
+  border-radius: 5px;
+  padding: 10px;
+}

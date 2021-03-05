@@ -12,26 +12,33 @@ async function selected_text(e) {
       const result = await url.json();
       const definition = result[0].meanings[0].definitions[0].definition;
       const example = result[0].meanings[0].definitions[0].example;
+      const x = e.clientX;
+      const y = e.clientY;
 
       console.log(definition);
-      create_form({ word, definition, example });
+
+      create_form({ word, definition, example, x, y });
+
+      document.addEventListener('click', remove_event);
     }
   }
 }
 
-function create_form({ word, definition, example }) {
+function remove_event() {
+  document.getElementById('container').remove();
+  document.removeEventListener('click', remove_event);
+}
+
+function create_form({ word, definition, example, x, y }) {
   const box = document.createElement('div');
   const heading = document.createElement('h1');
   const def = document.createElement('p');
   const eg = document.createElement('p');
 
-  box.id = 'container';
+  box.style.left = x + 'px';
+  box.style.top = y + 'px';
 
-  box.style.position = 'relative';
-  box.style.top = '0px';
-  box.style.width = '200px';
-  box.style.height = '200px';
-  box.style.backgroundColor = 'black';
+  box.id = 'container';
 
   document.body.append(box);
 
