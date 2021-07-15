@@ -60,9 +60,17 @@ function create_form({ word, definition, example, x, y }) {
   box.append(header, def, eg);
   document.body.append(box);
 
-  side_bar.addEventListener('click', add_to_dictionary);
+  side_bar.addEventListener('click', function store_function() {
+    add_to_dictionary({ word, definition });
+  });
 }
 
-function add_to_dictionary() {
-  console.log(word, definition, example);
+function add_to_dictionary({ word, definition }) {
+  chrome.storage.sync.set({ word: definition }, function () {
+    console.log(word, definition);
+  });
+
+  chrome.storage.sync.get(null, function (data) {
+    console.log(data);
+  });
 }

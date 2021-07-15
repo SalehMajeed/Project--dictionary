@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="search-txt" />
+    <input type="button" value="Search" onclick="search()" />
+    <br />
+    <label id="result-txt"></label>
+  </body>
+  <script>
+    async function search() {
+      const txt = document.getElementById('search-txt');
+      const res_txt = document.getElementById('result-txt');
+
+      const add_data = document.createElement('button');
+
+      const data = await fetch(
+        `https://api.dictionaryapi.dev/api/v2/entries/en_US/${txt.value}`
+      );
+      const result = await data.json();
+      const definition = result[0].meanings[0].definitions[0].definition;
+      const example = result[0].meanings[0].definitions[0].example;
+
+      const definition_label = document.createElement('label');
+      const example_label = document.createElement('label');
+
+      definition_label.innerText = `Definition: ${definition}`;
+      example_label.innerText = `Example: ${example}`;
+      console.log(definition, example);
+
+      res_txt.append(definition_label, example_label);
+      add_data.innerText = 'save';
+      add_data.id = 'save-me';
+      res_txt.append(add_data);
+      add_data.addEventListener('click', () => {
+        console.log(definition_label.innerText, example_label.innerText);
+      });
+    }
+  </script>
+</html>
