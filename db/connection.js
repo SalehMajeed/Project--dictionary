@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const url = 'mongodb://localhost:27017';
 
 mongoose.Promise = global.Promise;
 
@@ -9,8 +8,4 @@ const connect = (url) =>
     useUnifiedTopology: true,
   });
 
-connect(url)
-    .then(async (connection) => {
-      console.log(connection)
-  })
-  .catch((e) => console.error(e));
+module.exports = connect;
