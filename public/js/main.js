@@ -28,7 +28,7 @@ async function search() {
   add_data.addEventListener('click', () => {
     console.log(definition_label.innerText, example_label.innerText);
     const data = {
-      word: 'go',
+      word: word,
       definition: definition_label.innerText,
       example: example_label.innerText,
     };

@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
+
 const user_schema = new mongoose.Schema(
   {
     username: {
@@ -14,26 +16,40 @@ const user_schema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    add_word: {
-      type: Object,
-      definition: String,
-      exapmle: String,
-    },
+    add_word: Object,
   },
   { timestamps: true }
 );
 const user_model = mongoose.model('user', user_schema);
 
 async function store_data(req, res) {
-  const result = await user_model.create({
-    username: 'user1',
-    email: 'user@user.com',
-    password: '123',
-    gone: {
-      definition: req.body.definition,
-      example: req.body.example,
-    },
-  });
+  const word = req.body.word;
+  console.log(word);
+  // const deleted = await user_model
+  //   .findOneAndRemove({ username: 'user1' })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // console.log(deleted);
+
+  const result = await user_model
+    .updateOne(
+      { username: 'user1' },
+      {
+        $set: {
+          add_word: {
+            [word]: {
+              definition: req.body.definition,
+              example: req.body.example,
+            },
+          },
+        },
+      },
+      { upsert: true }
+    )
+    .catch((err) => {
+      console.log(err);
+    });
   console.log(result);
 }
 
